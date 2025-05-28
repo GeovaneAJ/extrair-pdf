@@ -1,0 +1,18 @@
+// Etapa 1: Extração de texto do PDF para Excel
+py begin
+import fitz  # PyMuPDF
+import pandas as pd
+
+# Abrir PDF (coloque o nome correto do seu arquivo)
+pdf = fitz.open("2025-05-28.pdf")
+
+# Coletar dados
+dados = []
+for page in pdf:
+    texto = page.get_text()
+    dados.append({"pagina": page.number + 1, "conteudo": texto})
+
+# Exportar para Excel
+df = pd.DataFrame(dados)
+df.to_excel("saida.xlsx", index=False)
+py finish
